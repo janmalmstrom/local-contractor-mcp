@@ -155,6 +155,7 @@ export const SITES = {
     domain: 'lifeandpower.se',
     phone: null,
     bookingUrl: 'https://www.lifeandpower.se/kontakt',
+    mapsUrl: 'https://www.google.com/maps/place/Life+and+Power+Massage/@56.8755138,14.8008702,16z/data=!3m1!4b1!4m6!3m5!1s0x4657238ede6ca35f:0x71f6a615c36cb1f5!8m2!3d56.8755109!4d14.8034451!16s%2Fg%2F1hc3m7pt4',
     city: 'Växjö',
     state: 'Sweden',
     address: 'Växjö, Sweden',

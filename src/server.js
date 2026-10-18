@@ -123,6 +123,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         `> ${site.disclaimer}`,
         '',
         `More information: https://${site.domain}`,
+        site.mapsUrl ? `Google Maps: ${site.mapsUrl}` : '',
       ].filter(l => l !== null).join('\n');
 
       return { content: [{ type: 'text', text }] };
