@@ -1,0 +1,32 @@
+{
+  "name": "local-contractor-mcp",
+  "version": "1.0.0",
+  "description": "MCP servers connecting AI agents with local contractors and service providers — water damage, locksmith, ketamine therapy, TMS, weight loss across US cities.",
+  "keywords": ["mcp", "local-services", "contractor", "water-damage", "locksmith", "colorado-springs", "fort-collins"],
+  "author": "Simaroa <hello@simaroa.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/janmalmstrom/local-contractor-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/janmalmstrom/local-contractor-mcp"
+  },
+  "type": "module",
+  "bin": {
+    "cs-water-mcp": "./bin/colorado-springs-water.js",
+    "fc-locksmith-mcp": "./bin/fort-collins-locksmith.js",
+    "peoria-water-mcp": "./bin/peoria-water.js",
+    "huntsville-ketamine-mcp": "./bin/huntsville-ketamine.js",
+    "charlotte-tms-mcp": "./bin/charlotte-tms.js",
+    "knoxville-weightloss-mcp": "./bin/knoxville-weightloss.js",
+    "chattanooga-water-mcp": "./bin/chattanooga-water.js"
+  },
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
