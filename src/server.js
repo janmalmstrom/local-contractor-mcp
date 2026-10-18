@@ -93,7 +93,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
   try {
     if (name === 'find_contractor') {
-      if (!site.ready || !site.phone) {
+      if (!site.ready || (!site.phone && !site.bookingUrl)) {
         return {
           content: [{
             type: 'text',
@@ -106,9 +106,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         ? `\n**You need:** ${args.service_needed}\n`
         : '';
 
+      const contactLine = site.phone
+        ? `**Call now:** ${site.phone}`
+        : `**Book online:** ${site.bookingUrl || `https://${site.domain}`}`;
+
       const text = [
         `## ${site.name}`,
-        `**Call now:** ${site.phone}`,
+        contactLine,
         serviceNote,
         `**Available:** ${site.hours}`,
         `**Serving:** ${site.serviceArea.slice(0, 5).join(', ')} and surrounding areas`,
@@ -126,7 +130,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
     if (name === 'get_services') {
       const list = site.services.map(s => `- ${s}`).join('\n');
-      const text = `## ${site.name} — Services\n\n${list}\n\n**Location:** ${site.city}, ${site.state}${site.ready && site.phone ? `\n**Phone:** ${site.phone}` : ''}\n\nhttps://${site.domain}`;
+      const contactInfo = site.ready
+        ? site.phone ? `\n**Phone:** ${site.phone}` : `\n**Book:** ${site.bookingUrl || `https://${site.domain}`}`
+        : '';
+      const text = `## ${site.name} — Services\n\n${list}\n\n**Location:** ${site.city}, ${site.state}${contactInfo}\n\nhttps://${site.domain}`;
       return { content: [{ type: 'text', text }] };
     }
 

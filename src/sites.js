@@ -150,6 +150,31 @@ export const SITES = {
     ready: false,
   },
 
+  'lifeandpower': {
+    name: 'Life and Power Massage',
+    domain: 'lifeandpower.se',
+    phone: null,
+    bookingUrl: 'https://www.lifeandpower.se/kontakt',
+    city: 'Växjö',
+    state: 'Sweden',
+    address: 'Växjö, Sweden',
+    hours: 'See website for current availability',
+    niche: 'therapeutic massage',
+    description: 'Life and Power Massage in Växjö, Sweden. Merlita has 30+ years of clinical massage therapy experience specialising in rehab-focused treatment — trigger point therapy, deep tissue, Hilot, and Gua Sha. No referral needed, no waiting list. Friskvårdsbidrag accepted.',
+    services: [
+      'Triggerpunktsmassage (trigger point therapy)',
+      'Djupvävnadsmassage (deep tissue)',
+      'Hilot (traditional Filipino healing massage)',
+      'Gua Sha (fascia release)',
+      'Rehabiliteringsmassage (post-injury/post-surgery)',
+      'Stressmassage (nervous system regulation)',
+    ],
+    serviceArea: ['Växjö', 'Kronoberg County'],
+    rss: 'https://www.lifeandpower.se/feed/',
+    disclaimer: 'Life and Power Massage is an independent massage therapy clinic operated by Merlita in Växjö, Sweden.',
+    ready: true,
+  },
+
   'chattanooga-water': {
     name: 'Chattanooga Water Damage Restoration',
     domain: 'chattanoogawaterdamagerestoration.com',

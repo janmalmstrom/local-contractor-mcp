@@ -1,6 +1,6 @@
 {
   "name": "local-contractor-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MCP servers connecting AI agents with local contractors and service providers — water damage, locksmith, ketamine therapy, TMS, weight loss across US cities.",
   "keywords": ["mcp", "local-services", "contractor", "water-damage", "locksmith", "colorado-springs", "fort-collins"],
   "author": "Simaroa <hello@simaroa.com>",
@@ -18,7 +18,8 @@
     "huntsville-ketamine-mcp": "./bin/huntsville-ketamine.js",
     "charlotte-tms-mcp": "./bin/charlotte-tms.js",
     "knoxville-weightloss-mcp": "./bin/knoxville-weightloss.js",
-    "chattanooga-water-mcp": "./bin/chattanooga-water.js"
+    "chattanooga-water-mcp": "./bin/chattanooga-water.js",
+    "lifeandpower-mcp": "./bin/lifeandpower.js"
   },
   "scripts": {
     "start": "node src/server.js"
