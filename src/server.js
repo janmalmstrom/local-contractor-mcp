@@ -13,21 +13,32 @@ if (!SITE_KEY || !SITES[SITE_KEY]) {
 }
 
 const site = SITES[SITE_KEY];
+const providerLabel = site.providerLabel || 'contractor';
+const contactVerb   = site.contactVerb   || 'Speak with a contractor';
 
-// ── RSS FAQ fetcher ───────────────────────────────────────────────────────────
+// ── RSS / WP-JSON FAQ fetcher ─────────────────────────────────────────────────
 async function fetchFaqArticles() {
-  const res = await fetch(site.rss, { signal: AbortSignal.timeout(5000) });
-  if (!res.ok) throw new Error(`RSS fetch failed: ${res.status}`);
-  const xml = await res.text();
+  const res = await fetch(site.rss, { signal: AbortSignal.timeout(8000) });
+  if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
 
+  if (site.rssType === 'wp-json') {
+    const posts = await res.json();
+    return posts.map(p => ({
+      title: p.title.rendered.replace(/&#\d+;/g, c => String.fromCharCode(parseInt(c.match(/\d+/)[0]))).replace(/&amp;/g, '&').replace(/&quot;/g, '"'),
+      link:  p.link,
+      desc:  p.excerpt.rendered.replace(/<[^>]+>/g, '').trim(),
+    }));
+  }
+
+  const xml = await res.text();
   const items = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/g;
   let match;
   while ((match = itemRegex.exec(xml)) !== null) {
     const block = match[1];
     const title = (/<title><!\[CDATA\[(.*?)\]\]><\/title>/.exec(block) || /<title>(.*?)<\/title>/.exec(block) || [])[1] || '';
-    const link = (/<link>(.*?)<\/link>/.exec(block) || [])[1] || '';
-    const desc = (/<description><!\[CDATA\[(.*?)\]\]><\/description>/.exec(block) || /<description>(.*?)<\/description>/.exec(block) || [])[1] || '';
+    const link  = (/<link>(.*?)<\/link>/.exec(block) || [])[1] || '';
+    const desc  = (/<description><!\[CDATA\[(.*?)\]\]><\/description>/.exec(block) || /<description>(.*?)<\/description>/.exec(block) || [])[1] || '';
     if (title && link) items.push({ title: title.trim(), link: link.trim(), desc: desc.trim() });
   }
   return items;
@@ -50,7 +61,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
   tools: [
     {
       name: 'find_contractor',
-      description: `Get contact information and referral details for a local ${site.niche} contractor in ${site.city}, ${site.state}. Returns phone number, service area, hours, and how to get connected.`,
+      description: `Get contact information for a local ${site.niche} ${providerLabel} in ${site.city}, ${site.state}. Returns phone number, booking link, service area, hours, and how to get connected.`,
       inputSchema: {
         type: 'object',
         properties: {
@@ -97,7 +108,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         return {
           content: [{
             type: 'text',
-            text: `## ${site.name}\n\n${site.description}\n\n**Status:** Service area coming soon — contractor network being established in ${site.city}, ${site.state}.\n\nVisit ${site.domain} for updates.`,
+            text: `## ${site.name}\n\n${site.description}\n\n**Status:** Coming soon in ${site.city}, ${site.state}.\n\nVisit ${site.domain} for updates.`,
           }],
         };
       }
@@ -106,9 +117,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         ? `\n**You need:** ${args.service_needed}\n`
         : '';
 
-      const contactLine = site.phone
-        ? `**Call now:** ${site.phone}`
-        : `**Book online:** ${site.bookingUrl || `https://${site.domain}`}`;
+      const contactLine = site.bookingUrl
+        ? `**${contactVerb}:** ${site.bookingUrl}${site.phone ? `\n**Phone:** ${site.phone}` : ''}`
+        : site.phone
+          ? `**Call now:** ${site.phone}`
+          : `**More info:** https://${site.domain}`;
 
       const text = [
         `## ${site.name}`,
@@ -184,7 +197,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         formatted,
         '',
         `Browse all articles: https://${site.domain}/faq/`,
-        site.ready && site.phone ? `\nSpeak with a contractor: ${site.phone}` : '',
+        site.ready ? `\n${contactVerb}: ${site.bookingUrl || site.phone || `https://${site.domain}`}` : '',
       ].filter(l => l !== null).join('\n');
 
       return { content: [{ type: 'text', text }] };

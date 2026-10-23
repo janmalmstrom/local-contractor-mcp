@@ -162,6 +162,8 @@ export const SITES = {
     address: 'Växjö, Sweden',
     hours: 'See website for current availability',
     niche: 'therapeutic massage',
+    providerLabel: 'therapist',
+    contactVerb: 'Book a session',
     description: 'Life and Power Massage in Växjö, Sweden. Merlita has 30+ years of clinical massage therapy experience specialising in rehab-focused treatment — trigger point therapy, deep tissue, Hilot, and Gua Sha. No referral needed, no waiting list. Friskvårdsbidrag accepted.',
     services: [
       'Triggerpunktsmassage (trigger point therapy)',
@@ -172,7 +174,8 @@ export const SITES = {
       'Stressmassage (nervous system regulation)',
     ],
     serviceArea: ['Växjö', 'Kronoberg County'],
-    rss: 'https://www.lifeandpower.se/feed/',
+    rss: 'https://www.lifeandpower.se/wp-json/wp/v2/posts?per_page=20&_fields=title,link,excerpt',
+    rssType: 'wp-json',
     disclaimer: 'Life and Power Massage is an independent massage therapy clinic operated by Merlita in Växjö, Sweden.',
     ready: true,
   },
