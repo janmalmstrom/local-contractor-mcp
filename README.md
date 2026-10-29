@@ -1,6 +1,6 @@
 # Local Contractor MCP
 
-MCP servers that connect AI agents with local service contractors across US cities. When your AI assistant is asked about water damage, locksmith services, ketamine therapy, TMS, or medical weight loss — it gets the right local phone number and answers.
+MCP servers that connect AI agents with local service businesses. When an AI assistant is asked who to call for a local service, it gets the right business, phone number, service area and answers.
 
 ## Available Servers
 
@@ -9,9 +9,6 @@ MCP servers that connect AI agents with local service contractors across US citi
 | `cs-water-mcp` | Colorado Springs, CO | Water damage restoration | ✅ Live |
 | `fc-locksmith-mcp` | Fort Collins, CO | Locksmith | ✅ Live |
 | `peoria-water-mcp` | Peoria, IL | Water damage restoration | 🔜 Coming soon |
-| `huntsville-ketamine-mcp` | Huntsville, AL | Ketamine therapy | 🔜 Coming soon |
-| `charlotte-tms-mcp` | Charlotte, NC | TMS therapy | 🔜 Coming soon |
-| `knoxville-weightloss-mcp` | Knoxville, TN | GLP-1 weight loss | 🔜 Coming soon |
 | `chattanooga-water-mcp` | Chattanooga, TN | Water damage restoration | 🔜 Coming soon |
 
 ## Tools (per server)
@@ -77,7 +74,7 @@ Each server is configured with:
 - **Service area** — cities and suburbs covered
 - **FAQ feed** — live RSS from the site's published articles
 
-When an AI agent has this MCP installed and a user asks *"who do I call for water damage in Colorado Springs?"*, the `find_contractor` tool fires and returns the local phone number directly in the response.
+When an AI agent has this MCP installed and a user asks "who do I call for water damage in Colorado Springs?", the `find_contractor` tool fires and returns the local phone number directly in the response.
 
 ## Disclaimer
 
